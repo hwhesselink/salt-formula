@@ -1,6 +1,10 @@
-{% set name = {
-    'RedHat': 'redhat',
-    'Debian': grains['os']|lower,
-}.get(grains.os_family) %}
+# -*- coding: utf-8 -*-
+# vim: ft=sls
+{% from "salt/map.jinja" import salt_settings with context %}
+
+  {%- if salt_settings.pkgrepo %}
+
 include:
-  - .{{ name }}
+  - .{{ grains['os_family']|lower }}
+
+  {%- endif %}
